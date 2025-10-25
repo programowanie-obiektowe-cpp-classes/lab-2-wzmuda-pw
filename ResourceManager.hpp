@@ -1,9 +1,10 @@
-pragma once
+#pragma once
 
 #include "Resource.hpp"
 
 #include <memory>
 #include <stdexcept>
+#include <utility>
 
 class ResourceManager
 {
