@@ -1,4 +1,4 @@
-#pragma once
+pragma once
 
 #include "Resource.hpp"
 
@@ -26,19 +26,6 @@ public:
         return *this;
     }
 
-    ResourceManager(ResourceManager&& other) noexcept
-        : resource(std::move(other.resource))
-    {}
-
-    ResourceManager& operator=(ResourceManager&& other) noexcept
-    {
-        if (this != &other) {
-            resource = std::move(other.resource);
-        }
-        return *this;
-    }
-
-    
     double get()
     {
         if (!resource) {
@@ -48,6 +35,5 @@ public:
     }
 
 private:
-    
     std::unique_ptr<Resource> resource;
 };
