@@ -2,7 +2,52 @@
 
 #include "Resource.hpp"
 
+#include <memory>
+#include <stdexcept>
+
 class ResourceManager
 {
-    // Twoja implementacja tutaj
+public:
+    ResourceManager()
+        : resource(std::make_unique<Resource>())
+    {}
+
+    ~ResourceManager() = default;
+
+    ResourceManager(const ResourceManager& other)
+        : resource(other.resource ? std::make_unique<Resource>(*other.resource) : nullptr)
+    {}
+
+    ResourceManager& operator=(const ResourceManager& other)
+    {
+        if (this != &other) {
+            resource = other.resource ? std::make_unique<Resource>(*other.resource) : nullptr;
+        }
+        return *this;
+    }
+
+    ResourceManager(ResourceManager&& other) noexcept
+        : resource(std::move(other.resource))
+    {}
+
+    ResourceManager& operator=(ResourceManager&& other) noexcept
+    {
+        if (this != &other) {
+            resource = std::move(other.resource);
+        }
+        return *this;
+    }
+
+    
+    double get()
+    {
+        if (!resource) {
+            throw std::runtime_error("ResourceManager: no resource");
+        }
+        return resource->get();
+    }
+
+private:
+    
+    std::unique_ptr<Resource> resource;
 };
